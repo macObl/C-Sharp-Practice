@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CST8259_Lab2.Models.XmlValidationError>
+
+@{
+    ViewData["Title"] = "ValidationResult";
+}
+
+<h1>Validation Result</h1>
+<br />
+@if (Model.Count() == 0)
+{
+    <p>No error found when validating XML file <span class="font-weight-bold">@ViewBag.XmlFileName</span></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Element)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ErrorType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Line)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Column)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Message)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Element)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ErrorType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Line)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Column)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Message)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
