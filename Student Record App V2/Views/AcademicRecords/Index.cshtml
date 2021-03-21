@@ -1,0 +1,51 @@
+﻿@model Lab6.Models.DataAccess.AcademicRecord[]
+@using Lab6.Models.DataAccess;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <input type="hidden" name="sort" value="@ViewData["sort"]" />
+    <thead>
+        <tr>
+            <th>
+                <a asp-controller="AcademicRecords" asp-action="Index" asp-route-sort="course">Course</a>
+            </th>
+            <th>
+                <a asp-controller="AcademicRecords" asp-action="Index" asp-route-sort="student">Student</a>
+            </th>
+            <th>
+                <a asp-controller="AcademicRecords" asp-action="Index" asp-route-sort="grade">Grade</a>
+            </th>
+            <th><a asp-action="EditAll">Edit All</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseCodeNavigation.Code) - @Html.DisplayFor(modelItem => item.CourseCodeNavigation.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Id) - @Html.DisplayFor(modelItem => item.Student.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @{
+                        var data = new Dictionary<string, string> { { "studentId", item.StudentId }, { "courseCode", item.CourseCode } };
+                    }
+                    <a asp-action="Edit" asp-route-studentId="@item.StudentId" asp-route-courseCode="@item.CourseCode">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

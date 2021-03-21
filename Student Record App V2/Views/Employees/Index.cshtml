@@ -1,0 +1,58 @@
+﻿@model List<Employee>
+@using Lab6.Models.DataAccess;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Employee Name 
+            </th>
+            <th>
+                NetWork ID
+            </th>
+            <th>
+                Job Tittle
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @{ 
+                    int counter = 0;
+
+                    foreach(var role in item.Roles)
+                    {
+                        if(counter > 0)
+                        {
+                            @:,
+                        }
+                        @Html.DisplayFor(modelItem => role.Role1);
+                        counter++;
+                    }
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+﻿@model Lab6.Models.DataAccess.AcademicRecord[]
+
+@{
+    ViewData["Title"] = "EditAll";
+}
+
+<h1>EditAll</h1>
+
+<input type="hidden" name="sort" value="@ViewData["sort"]" />
+<form asp-action="EditAll" asp-controller="AcademicRecords" method="POST">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-controller="AcademicRecords" asp-action="EditAll" asp-route-sort="course">Course</a>
+                </th>
+                <th>
+                    <a asp-controller="AcademicRecords" asp-action="EditAll" asp-route-sort="student">Student</a>
+                </th>
+                <th>
+                    <a asp-controller="AcademicRecords" asp-action="EditAll" asp-route-sort="grade">Grade</a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Length; i++)
+            {
+                <tr>
+                    <td>
+                        <span asp-for="@Model[i].CourseCodeNavigation.Code">@Model[i].CourseCode - @Model[i].CourseCodeNavigation.Title</span>
+                        <input type="hidden" asp-for="@Model[i].CourseCode" />
+                    </td>
+                    <td>
+                        <span asp-for="@Model[i].Student.Name">@Model[i].StudentId - @Model[i].Student.Name</span>
+                        <input type="hidden" asp-for="@Model[i].StudentId" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" style="width: 60px" asp-for="@Model[i].Grade" value="@Model[i].Grade" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+</form>
